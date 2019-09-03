@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="small-12 medium-8 columns">
+    <h3>Pick your favourite plans...</h3>
+    <ul class="product-list">
+      <li *ngFor="let product of products | async"
+          class="product-container">
+          <div class="row">
+              <div class="medium-15 columns text-center">
+               <h4> 
+                 <span class="text--bold js-product-name">{{product.name}}</span>
+                 <small class=" text--bold product_price js-product-price">{{product.price | currency:'USD':true}}</small>
+               </h4>
+              <p class="js-product-desc">{{product.description}}</p>
+              <p>
+                <span class="text--bold">Plan details:</span>
+                <br/>
+                <span *ngFor="let plan_details of product.plan_details ">
+                  {{plan_details.name}}({{plan_details.percentage}})
+                  <br/>
+                </span>
+              </p>
+              <p>
+                <button type="button"
+                        class="button warning large js-btn-add"
+                        (click)="addProductToCart(product, 1)">Add To Cart</button>
+                <button type="button"
+                        class="button warning large js-btn-remove"
+                        *ngIf="productInCart(product) | async"
+                        (click)="removeProductFromCart(product, 1)">Remove</button>
+              </p>
+            </div>
+          </div>
+      </li>
+    </ul>
+  </div>
+  <div class="small-12 medium-4 columns">
+    <app-shopping-cart></app-shopping-cart>
+  </div>
+</div>
